@@ -248,6 +248,13 @@
   }
   .service-card h3 { position: relative; font-size: 19px; text-transform: none; font-weight: 600; margin: 4px 0 10px; max-width: 22ch; }
   .service-card p { position: relative; font-size: 14.5px; color: var(--ink-soft); margin: 0; }
+  .service-card .card-link {
+    position: relative; display: inline-flex; align-items: center; gap: 7px; margin-top: 18px;
+    font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.03em; color: var(--accent-strong); text-decoration: none;
+  }
+  .service-card .card-link::after { content: "\2192"; transition: transform .18s ease; display: inline-block; }
+  .service-card .card-link:hover { color: var(--accent-bright); }
+  .service-card .card-link:hover::after { transform: translateX(3px); }
 
   /* ---------- Metodo ---------- */
   .steps { margin-top: 44px; display: flex; flex-direction: column; position: relative; }
@@ -558,12 +565,12 @@
     <p class="eyebrow chapter"><span class="chapter-num">04</span>Cosa facciamo</p>
     <h2 class="section-title">Sei aree, un problema pratico alla volta</h2>
     <div class="service-grid">
-      <div class="service-card"><span class="num">01</span><h3>Gestione dei contatti commerciali</h3><p>Ogni contatto in arrivo riceve una prima risposta in pochi minuti, con l'archivio clienti aggiornato da solo.</p></div>
-      <div class="service-card"><span class="num">02</span><h3>Assistenza clienti automatizzata</h3><p>Le domande più comuni trovano risposta su WhatsApp o posta elettronica, ventiquattro ore su ventiquattro.</p></div>
-      <div class="service-card"><span class="num">03</span><h3>Preventivi, fatture e documenti</h3><p>Documenti generati e archiviati in automatico, pronti da firmare o da pagare in pochi minuti.</p></div>
-      <div class="service-card"><span class="num">04</span><h3>Resoconti sull'andamento dell'azienda</h3><p>Un resoconto chiaro ogni settimana, senza ore passate a incrociare fogli di calcolo.</p></div>
-      <div class="service-card"><span class="num">05</span><h3>Accoglienza dei nuovi clienti</h3><p>Documenti, account e primo appuntamento pronti in ore, non in una settimana.</p></div>
-      <div class="service-card"><span class="num">06</span><h3>Scadenze e adempimenti obbligatori</h3><p>Comunicazioni obbligatorie e scadenze tenute sotto controllo, senza rischio di dimenticanze.</p></div>
+      <div class="service-card"><span class="num">01</span><h3>Gestione dei contatti commerciali</h3><p>Ogni contatto in arrivo riceve una prima risposta in pochi minuti, con l'archivio clienti aggiornato da solo.</p><a class="card-link" href="servizi/gestione-contatti-commerciali.html">Scopri di più</a></div>
+      <div class="service-card"><span class="num">02</span><h3>Assistenza clienti automatizzata</h3><p>Le domande più comuni trovano risposta su WhatsApp o posta elettronica, ventiquattro ore su ventiquattro.</p><a class="card-link" href="servizi/assistenza-clienti-automatizzata.html">Scopri di più</a></div>
+      <div class="service-card"><span class="num">03</span><h3>Preventivi, fatture e documenti</h3><p>Documenti generati e archiviati in automatico, pronti da firmare o da pagare in pochi minuti.</p><a class="card-link" href="servizi/preventivi-fatture-documenti.html">Scopri di più</a></div>
+      <div class="service-card"><span class="num">04</span><h3>Resoconti sull'andamento dell'azienda</h3><p>Un resoconto chiaro ogni settimana, senza ore passate a incrociare fogli di calcolo.</p><a class="card-link" href="servizi/resoconti-andamento-aziendale.html">Scopri di più</a></div>
+      <div class="service-card"><span class="num">05</span><h3>Accoglienza dei nuovi clienti</h3><p>Documenti, account e primo appuntamento pronti in ore, non in una settimana.</p><a class="card-link" href="servizi/accoglienza-nuovi-clienti.html">Scopri di più</a></div>
+      <div class="service-card"><span class="num">06</span><h3>Scadenze e adempimenti obbligatori</h3><p>Comunicazioni obbligatorie e scadenze tenute sotto controllo, senza rischio di dimenticanze.</p><a class="card-link" href="servizi/scadenze-adempimenti.html">Scopri di più</a></div>
     </div>
   </div>
 </section>
