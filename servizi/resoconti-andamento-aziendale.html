@@ -470,9 +470,24 @@
     <p class="eyebrow chapter"><span class="chapter-num">08</span>Contatti</p>
     <h2 class="section-title">Parliamo dei numeri che non riesci mai a vedere tutti insieme.</h2>
     <p class="body-col">Un'analisi gratuita, senza impegno: guardiamo insieme dove vivono i tuoi dati oggi.</p>
-    <div class="cta-row">
-      <a class="btn primary" href="mailto:matteo@automatia.studio">Scrivici: matteo@automatia.studio</a>
-    </div>
+    <form class="contact-form" action="https://formspree.io/f/xwlkeqww" method="POST" data-automatia-form>
+      <div class="form-row">
+        <label for="cf-name">Nome</label>
+        <input type="text" id="cf-name" name="name" autocomplete="name" required />
+      </div>
+      <div class="form-row">
+        <label for="cf-email">Email</label>
+        <input type="email" id="cf-email" name="email" autocomplete="email" required />
+      </div>
+      <div class="form-row">
+        <label for="cf-message">Di cosa hai bisogno?</label>
+        <textarea id="cf-message" name="message" rows="4" required></textarea>
+      </div>
+      <input type="hidden" name="_subject" value="Nuova richiesta da automatia.studio" />
+      <button type="submit" class="btn primary">Invia richiesta</button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+      <p class="form-fallback">Oppure scrivici direttamente: <a href="mailto:matteo@automatia.studio">matteo@automatia.studio</a></p>
+    </form>
   </div>
 </section>
 
@@ -525,6 +540,20 @@
   .cookie-banner a { color: var(--accent-strong); }
   .cookie-actions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
   @media (max-width: 480px) { .cookie-banner { left: 10px; right: 10px; bottom: 10px; padding: 16px; } }
+  .contact-form { margin-top: 30px; max-width: 480px; display: flex; flex-direction: column; gap: 16px; }
+  .form-row { display: flex; flex-direction: column; gap: 6px; }
+  .form-row label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-faint); }
+  .form-row input, .form-row textarea {
+    background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius);
+    padding: 12px 14px; font-family: var(--serif); font-size: 15px; color: var(--ink); resize: vertical;
+  }
+  .form-row input:focus, .form-row textarea:focus { outline: none; border-color: var(--accent); }
+  .contact-form .btn.primary { align-self: flex-start; }
+  .form-status { font-family: var(--mono); font-size: 13px; margin: 0; min-height: 1.2em; color: var(--ink-faint); }
+  .form-status.ok { color: var(--good); }
+  .form-status.err { color: var(--bad); }
+  .form-fallback { font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint); margin: 0; }
+  .form-fallback a { color: var(--accent-strong); }
 </style>
 <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Consenso cookie" hidden>
   <p>Usiamo Google Analytics solo con il tuo consenso, per capire come viene usato il sito. Nessun dato viene condiviso con terzi per pubblicità. <a href="https://automatia.studio/privacy.html">Leggi la privacy policy</a>.</p>
@@ -549,6 +578,43 @@
   document.getElementById('cookie-decline').addEventListener('click', function () {
     try { localStorage.setItem(CONSENT_KEY, 'denied'); } catch (e) {}
     banner.hidden = true;
+  });
+})();
+</script>
+<script>
+(function () {
+  var forms = document.querySelectorAll('[data-automatia-form]');
+  forms.forEach(function (form) {
+    var status = form.querySelector('.form-status');
+    var btn = form.querySelector('button[type="submit"]');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      btn.disabled = true;
+      status.className = 'form-status';
+      status.textContent = 'Invio in corso...';
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function (res) {
+        if (res.ok) {
+          form.reset();
+          status.textContent = 'Grazie! Ti risponderemo il prima possibile.';
+          status.classList.add('ok');
+        } else {
+          return res.json().then(function (data) {
+            var msg = (data && data.errors) ? data.errors.map(function (er) { return er.message; }).join(', ') : null;
+            status.textContent = msg || 'Qualcosa \u00e8 andato storto. Riprova o scrivici a matteo@automatia.studio.';
+            status.classList.add('err');
+          });
+        }
+      }).catch(function () {
+        status.textContent = 'Errore di connessione. Riprova o scrivici a matteo@automatia.studio.';
+        status.classList.add('err');
+      }).finally(function () {
+        btn.disabled = false;
+      });
+    });
   });
 })();
 </script>
